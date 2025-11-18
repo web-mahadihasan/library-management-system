@@ -6,15 +6,17 @@ const bookSchema = new Schema<IBook>(
     {
         title: {
             type: String,
-            required: [true, 'Title is a required field']
+            required: [true, 'Title is a required'],
+            trim: true
         },
         author: {
             type: String,
-            required: [true, 'Author is a required field']
+            required: [true, 'Author is a required'],
+            trim: true
         },
         genre: {
             type: String,
-            required: [true, "Genre is a required field"],
+            required: [true, "Genre is a required"],
             enum: {
                 values: bookGenre,
                 message: 'Invalid genre. Must be one of: FICTION, NON_FICTION, SCIENCE, HISTORY, BIOGRAPHY, FANTASY.'
@@ -22,7 +24,8 @@ const bookSchema = new Schema<IBook>(
         },
         isbn: {
             type: String,
-            required: [true, 'ISBN is a required field'],
+            required: [true, 'ISBN is a required'],
+            trim: true,
             unique: true
         },
         description: {
@@ -30,7 +33,7 @@ const bookSchema = new Schema<IBook>(
         },
         copies: {
             type: Number,
-            required: [true, 'Copies is a required field'],
+            required: [true, 'Copies is a required'],
             min: [0, 'Copies must be a non-negative number.'],
             validate: {
                 validator: Number.isInteger,
