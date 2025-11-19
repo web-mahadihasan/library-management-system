@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IBook } from "../interfaces/book.interface";
+import { BookStaticMethod, IBook } from "../interfaces/book.interface";
 import { bookGenre } from "../constants/book.constants";
 
-const bookSchema = new Schema<IBook>(
+const bookSchema = new Schema<IBook, BookStaticMethod>(
     {
         title: {
             type: String,
@@ -51,4 +51,97 @@ const bookSchema = new Schema<IBook>(
     }
 );
 
-export const Book = model<IBook>('Book', bookSchema);
+bookSchema.statics.deductCopies = async function(bookId, quantity) {
+    const book = await this.findById(bookId)
+
+    if(!book) {
+        throw new Error('Book not found');
+    }
+    console.log(book)
+}
+
+export const Book = model<IBook, BookStaticMethod>('Book', bookSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bookSchema.statics.deductCopies = async function(bookId: string, quantity: number) {
+//     const book = await this.findById(bookId);
+    
+//     if (!book) {
+//         throw new Error('Book not found');
+//     }
+    
+//     if (book.copies < quantity) {
+//         throw new Error(`Insufficient copies available. Available: ${book.copies}, Requested: ${quantity}`);
+//     }
+    
+//     book.copies -= quantity;
+    
+//     // Update available to false if copies become 0
+//     if (book.copies === 0) {
+//         book.available = false;
+//     }
+    
+//     await book.save();
+//     return book;
+// };
